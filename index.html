@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <Style>
+        *{
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    width: 80vw;
+    background-color: #212121;
+    border-radius: 50px;
+    margin: 100px auto;
+    text-align: center;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+h1{
+    font-size: 2em;
+    color: #fff8dc;
+}
+body{
+    background-color: #000;
+}
+button{
+    padding: 30px;
+    width: 100px;
+    height: 100px;
+    margin: 0 8px;
+    color: #fff8dc;
+    background-color: #303030;
+    border:none;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+button:hover{
+    background-color: #424242;
+}
+.li{
+    margin-top: 50px;
+    text-align: left;
+    margin-left: 10vw;
+    color: #fff8dc;
+}
+    </Style>
+</head>
+<body>
+        <div class="container">
+            <h1>00:00:00 </h1><br>
+        <button id="btn" onclick="startpause()">Start</button>
+        
+        <button onclick="reset()">Reset</button>
+        <button onclick="lap()">Pause</button><br>
+        <div class="li">
+            <ol id="list"></ol>
+        </div>
+        </div>
+    <script>
+        var timeH = document.querySelector("h1");
+var list =document.getElementById("list");
+
+let timeSecond = 0;
+        
+var mini=0;
+var maxi=60;
+var countUp;
+var btn =document.getElementById("btn");
+
+
+
+
+
+  function displayTime(second) {
+      let hr = Math.floor(second/3600)
+      
+    let min = Math.floor(second /60 );
+      if(min>60){min=min%60}
+    
+
+    let sec = Math.floor(second %60);
+    timeH.innerHTML = `${hr < 10 ? "0" : ""}${hr}:${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
+  }
+  
+function start(){
+     countUp = setInterval(() => {
+        timeSecond++;
+        displayTime(timeSecond);
+        
+      }, 10);
+     
+  }
+  function pause(){
+      clearInterval(countUp);
+  }
+  function reset(){
+      clearInterval(countUp);
+      timeSecond=0;
+      timeH.innerHTML='00:00:00';
+      btn.innerText="Start";
+      list.innerHTML="";
+      
+  }
+  function lap(){
+    var li =document.createElement("li");
+      li.innerHTML=timeH.innerHTML;
+      list.appendChild(li);
+  }
+  function startpause(){
+      if(btn.innerText=="Start"){
+          start();
+          btn.innerText="Pause";
+      }
+      else{
+          pause();
+          btn.innerText="Start"
+      }
+  }
+    </script>
+    
+</body>
+</html>
